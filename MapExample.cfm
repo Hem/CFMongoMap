@@ -1,9 +1,9 @@
 <cfscript>
 	
-	import com.cfmongomap.*
+	import com.cfmongomap.*;
 	
 	map = new Map('com.demo.poco.Person')
-				.mapProperty("id")
+				.mapProperty('id')
 					.toField('_id')
 						.asPropertyType('ObjectId')
 							// NOTE: Set this as 'ObjectID' if you wish to work with the DBObjectId object instead of "String"

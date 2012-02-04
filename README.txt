@@ -8,6 +8,57 @@ NOTE: Querying for objects and saving objects to Mongo are outside the scope of 
 Please use CFMongoDB, MongoCFC, or plain old Mongo Java drivers to do so.
 
 
+SAMPLE CODE
+--------------------------------------------------------------------------------------------------------------------
+import com.cfmongomap.*;
+
+// create the map.
+map = new Map('com.demo.poco.Person')
+			.mapProperty('id')
+				.toField('_id')
+					.asPropertyType('ObjectId')
+						.asDataType('String')	// NOTE: Set this as 'ObjectID' if you wish to work with the DBObjectId object
+			.mapProperty('firstName')
+			.mapProperty('lastName')
+			
+			// A user can have multiple email id's
+			.mapProperty('emails')
+				.asPropertyType('Array')
+					.asDataType('String')
+				
+				// A user can have multiple addresses!
+			.mapProperty('addresses')
+				.asPropertyType('Array')
+					// NOTE: DataType 'Mapped' when you are working with NON-SIMPLE Object Types.. Struct, CFC, Java Objects
+				.asDataType('Mapped')
+					
+				.usingMap( // NOTE: Embeding a map for array of addresses
+						new Map('com.demo.poco.Address')
+								.mapProperty('addressType')
+								.mapProperty('address1')
+								.mapProperty('address2')
+								.mapProperty('city')
+								.mapProperty('state')
+								.mapProperty('zipcode')
+									);
+
+
+// get an instance of the cursor from the database.			
+dbCursor = peopleCollection.find();
+
+// get an instance of Map Processor Object (1 instance per request & map & data type)
+mapProcessor = new com.cfmongomap.MapProcessor(map).setData(dbCursor).setDirection('DB2CF');
+
+// ask map processor to convert data ...	
+while(mapProcessor.hasNext()){
+	item = mapProcessor.next();
+	WriteDump(var = item, Label='Retrieved ' & item.getId(), expand=false );
+}
+				
+			
+
+
+
 GETTING STARTED with MongoDemo:
 
 a. Set-up Mongo http://www.mongodb.org/
@@ -39,10 +90,10 @@ Getting Started with your application.
 a. Have Mongo up and running and the Mongo Drivers installed in the lib folder (or provide path in CreateObject call)
 
 a. You only need com.cfmongomap.* files for CFMongoMap to work
-	Option 1: Copy com.cfmongomap.* to your <WEBROOT>/com/cfmonogmap/
-	Option 2: Copy com.cfmongomap.* to your <WEBROOT>/<YOUR_PROJECT>/com/cfmonogmap/ 
+	Option 1: Copy com.cfmongomap.* to your WEBROOT/com/cfmonogmap/
+	Option 2: Copy com.cfmongomap.* to your WEBROOT/YOUR_PROJECT/com/cfmonogmap/ 
 				and provide mappings example...
-			this.mappings["/com/cfmongomap"] 	= ExpandPath('/MongoDemo/com/cfmongomap');
+			this.mappings["/com/cfmongomap"] = ExpandPath('/MongoDemo/com/cfmongomap');
 
 
 
