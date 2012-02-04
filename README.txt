@@ -8,39 +8,16 @@ NOTE: Querying for objects and saving objects to Mongo are outside the scope of 
 Please use CFMongoDB, MongoCFC, or plain old Mongo Java drivers to do so.
 
 
-SAMPLE CODE
---------------------------------------------------------------------------------------------------------------------
+SAMPLE CODE :: [MapExample.cfm]
+---------------------------------------------------------------
+---------------------------------------------------------------
 import com.cfmongomap.*;
 
 // create the map.
 map = new Map('com.demo.poco.Person')
-			.mapProperty('id')
-				.toField('_id')
-					.asPropertyType('ObjectId')
-						.asDataType('String')	// NOTE: Set this as 'ObjectID' if you wish to work with the DBObjectId object
-			.mapProperty('firstName')
-			.mapProperty('lastName')
-			
-			// A user can have multiple email id's
-			.mapProperty('emails')
-				.asPropertyType('Array')
-					.asDataType('String')
-				
-				// A user can have multiple addresses!
-			.mapProperty('addresses')
-				.asPropertyType('Array')
-					// NOTE: DataType 'Mapped' when you are working with NON-SIMPLE Object Types.. Struct, CFC, Java Objects
-				.asDataType('Mapped')
-					
-				.usingMap( // NOTE: Embeding a map for array of addresses
-						new Map('com.demo.poco.Address')
-								.mapProperty('addressType')
-								.mapProperty('address1')
-								.mapProperty('address2')
-								.mapProperty('city')
-								.mapProperty('state')
-								.mapProperty('zipcode')
-									);
+	.mapProperty('id').toField('_id').asPropertyType('ObjectId').asDataType('String')
+	.mapProperty('firstName')
+	.mapProperty('lastName');
 
 
 // get an instance of the cursor from the database.			
