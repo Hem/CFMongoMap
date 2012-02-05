@@ -1,0 +1,26 @@
+VERSION 0.1
+-----------------------------------------------
+
+Provided initial Map functionality.
+
+a. Mapping CFC.Property to DB.Column for all Simple Property Types
+	- String
+	- Number
+	- etc...
+	
+	NOTE: Modify MapProcessor.cfc to fill in the void since I have not worked on date, time, timestamp etc...
+
+b. Mapping for CFC.property of array to array of cfcs, CFC.Array of Strings etc...
+
+c. Mapping for CFC.Property to cfc, object
+
+
+VERSION 0.2
+----------------------------------------------
+
+a. Ability for Linked Maps.
+
+	NOTE: I need to know if anyone creates a DB-REF across databases?
+	
+b. Moved all examples to /Examples directory
+

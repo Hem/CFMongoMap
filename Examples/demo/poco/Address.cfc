@@ -1,6 +1,6 @@
 <cfscript>
 
-component accessors="true"{
+component accessors="true" output=false{
 	
 	property string addressType;
 	

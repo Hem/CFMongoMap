@@ -7,12 +7,12 @@
 	for(i=1; i <= 5; i++){
 	
 	
-		person = new com.demo.poco.Person();
+		person = new examples.demo.poco.Person();
 		person.setFirstName('Person #i#');
 		person.setLastName('Smith');
 		person.setEmails(['Person.#i#.Smith@gmail.com','Person#i#.Smith@yahoo.com']);
 		
-		address1 = new com.demo.poco.Address();
+		address1 = new examples.demo.poco.Address();
 			address1.setAddressType('Home');
 			address1.setAddress1('#i# Place One');
 			address1.setCity('Nashville');
@@ -20,7 +20,7 @@
 			address1.setZipcode('37215');
 			
 			
-		address2 = new com.demo.poco.Address();
+		address2 = new examples.demo.poco.Address();
 			address2.setAddressType('Work');
 			address2.setAddress1('#i# Place Two');
 			address2.setCity('Nashville');

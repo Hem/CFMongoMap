@@ -41,6 +41,15 @@ component implements=IMapProcessor accessors='false' output=false{
 		return variables.map;
 	}
 	
+	
+	public IMapProcessor function setDB(required any database){
+		if(!IsMongoDb(Arguments.database))
+			throw(message = 'Database should be of type com.mongodb.DB');
+		
+		Variables.database = Arguments.database;
+		return this;		
+	}
+	
 	public IMapProcessor function setData(required any data){
 		Variables.dataIterator = getIteratorForItem(data);
 		Variables.currentObject = JavaCast('null','');
@@ -130,6 +139,15 @@ component implements=IMapProcessor accessors='false' output=false{
 	}
 	
 	
+	public function isDbRef(required any item){
+		return isNull(item) ? false : IsInstanceOf(item, 'com.mongodb.DBRef');	
+	}
+	
+	public function getDbRef(required string collectionName, required any Id){
+		return CreateObject('java','com.mongodb.DBRef').init(Variables.database, collectionName, getObjectId(id));
+	}
+	
+	
 	public function getBasicDbObject(){
 		return CreateObject("java", "com.mongodb.BasicDBObject").init();
 	}
@@ -137,6 +155,12 @@ component implements=IMapProcessor accessors='false' output=false{
 	public function getBasicDbList(){
 		return createObject("java", "com.mongodb.BasicDBList").init();
 	}
+	
+	public function isMongoDB(required any database){
+		return IsInstanceOf(database, 'com.mongodb.DB');
+	}
+	
+	
 	
 	
 	

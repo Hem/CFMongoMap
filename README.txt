@@ -37,6 +37,8 @@ while(mapProcessor.hasNext()){
 
 
 GETTING STARTED with MongoDemo:
+---------------------------------------------------------------
+---------------------------------------------------------------
 
 a. Set-up Mongo http://www.mongodb.org/
 
@@ -48,21 +50,28 @@ b. Copy the Mongo database drivers to coldfusions 'Lib' directory (restart servi
 c. Copy files in this directory to your <WebRoot>/MongoDemo
 
 
-b. MapExample.cfm tells you how to set-up your map object and embeded map object
+d. Examples
+	
+:: Maps.cfm tells you how to set-up your map object and embeded map object
 
-c. MockCFData.cfm provides you with a sample data of people and multiple addresses per person
+:: MockCFData.cfm provides you with a sample data of people and multiple addresses per person
+	
+:: MapProcessor.cfm provides the calls to convert data from CF -> DB and vice versa
 
-e. MapProcessorExample.cfm provides the calls to convert data from CF -> DB and vice versa
+:: ReadAndWriteData.cfm  provides an example on how to well read and write data to Mongo.
 
-f. ReadAndWriteData.cfm  provides an example on how to well read and write data to Mongo.
-
-NOTE:- 	Currently I'm not saving and retrieving mongo objects from the database...
-		
-
+:: LinkedMap.cfm map examples for retrieving linked code.
 
 
 
-Getting Started with your application.
+
+
+
+
+Using CFMongoMap in your application
+---------------------------------------------------------------
+---------------------------------------------------------------
+
 
 a. Have Mongo up and running and the Mongo Drivers installed in the lib folder (or provide path in CreateObject call)
 
@@ -77,8 +86,6 @@ a. You only need com.cfmongomap.* files for CFMongoMap to work
 Read more on the Java Driver functionality at
 
 http://www.mongodb.org/display/DOCS/Java+Language+Center
-
-
 
 Enjoy!!!
 -Hem

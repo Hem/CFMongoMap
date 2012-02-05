@@ -2,11 +2,16 @@
 
 import com.cfmongomap.*;
 
+/**
+ * Version 0.1 -- Created
+ * Version 0.2 -- Added IdFieldName and CollectionName for Linked References
+ **/
+
+
 component implements=IMap{
 	
-	
 	// constructor !
-	public any function init(required string className, string classType='component'){
+	public Any function init(required string className, string classType='component'){
 		Variables.className = Arguments.className;
 		Variables.classType = Arguments.classType;
 		Variables.CACHE_KEY = Replace(CreateUUID(),'-','_', 'ALL');
@@ -29,8 +34,6 @@ component implements=IMap{
 		return Variables.CACHE_KEY;
 	}
 	
-	
-	
 	Variables.className = "";
 	public string function getClassName(){
 		return Variables.className;
@@ -46,10 +49,33 @@ component implements=IMap{
 		return variables.fields;
 	}
 	
+	Variables.idFieldName = "";
+	public Any function setIdFieldName(required string name){
+		Variables.idFieldName = Arguments.name;
+		return this;
+	}
+	public String function getIdFieldName(){
+		return Variables.idFieldName;
+	}
+	
+	
+	Variables.collectionName = "";
+	public Any function setCollectionName(required string name){
+		Variables.collectionName = Arguments.name;
+		return this;
+	}
+	public String function getCollectionName(){
+		return Variables.collectionName;
+	}
+	
+	/*	*/
+	
 	
 	public any function iterator(){
 		return Variables.fields.iterator();
 	}
+	
+	
 	
 	
 	

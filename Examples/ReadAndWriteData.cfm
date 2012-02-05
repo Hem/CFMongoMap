@@ -1,7 +1,7 @@
 <cfscript>
 	
-	include 'MapExample.cfm'; // provides the map
-	
+	include 'Maps.cfm'; // provides the map
+		
 	include 'MockCFData.cfm'; // provides an Array of people (ColdFusion Objects)!	
 	
 	

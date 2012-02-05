@@ -102,6 +102,15 @@ component extends=MapProcessorBase output=false {
 				return getMapProcessor(field.getDataMap()).toCfObject(value);
 			break;
 			
+			case 'Linked':
+				var linkedVal = value.fetch();
+				return getMapProcessor(field.getDataMap()).toCfObject(linkedVal); 
+			break;
+			
+			case 'Any':
+				return value;
+			break;
+			
 			default:
 				throw(message='Not yet implemented: #field.getDataType()#');
 			break;
@@ -128,10 +137,12 @@ component extends=MapProcessorBase output=false {
 			var mName = 'get' & pName; // NOTE: capatalize pName 
 			
 			// set dbField
-			dbObj[fieldName] = !IsNull( item[mName]) ?  toDbValue(item[mName](),mapping) :
+			var fieldValue = !IsNull( item[mName]) ?  toDbValue(item[mName](),mapping) :
 									!IsNull( item[mName]) ? toDbValue(item[pName], mapping) :
 											JavaCast('null','');		 	
-				
+			
+			dbObj.put(fieldName, !IsNull(fieldValue) ? fieldValue : JavaCast('null','') );
+					
 		} 
 		
 		return dbObj;
@@ -195,19 +206,48 @@ component extends=MapProcessorBase output=false {
 			case 'Float':
 				return IsNull(value) ? JavaCast('null','') : JavaCast('float',value);
 			break;
-			case 'Float':
+			case 'Long':
 				return IsNull(value) ? JavaCast('null','') : JavaCast('long',value);
+			break;
+			case 'Date':
+			case 'DateTime':
+				throw('TBD:: DATE & DATETIME');
 			break;
 			
 			case 'Mapped':
 				return getMapProcessor(field.getDataMap()).toDbObject(value);
 			break;
+			
+			case 'Linked':
 				
-			case 'Date':
-			case 'DateTime':
+				if(isDbRef(value)){
+					return dbRef;			
+				}
+
+				
+				var collectionName 	= field.getDataMap().getCollectionName();
+				
+				if(IsObjectId(value) || IsSimpleValue(value))
+					return getDbRef(collectionName, value);
+				
+				
+					
+				var fName 			= field.getDataMap().getIdFieldName();
+				var mName			= 'get' & fName;
+				var fieldValue 		= !IsNull(value[mName]) ? value[mName]() : value[fName];
+				
+					return getDbRef(collectionName, fieldValue);
+				
 			break;
+			
+			case 'Any':
+				return value;
+			break;
+				
 		}
 	}
+	
+	
 	
 	
 	Variables._mapProcessors = {};

@@ -3,18 +3,18 @@ component output="false"{
 	
 	this.name = "CFMongoDemo";
 	
-	this.sessionManagement = true;
-	this.sessionTimeout = CreateTimeSpan(0,0,30,0);
+	this.sessionManagement 	= true;
+	this.sessionTimeout 	= CreateTimeSpan(0,0,30,0);
 	this.applicationTimeout = CreateTimeSpan(0,1,0,0);
 	
 	
-	this.localMode = "always";
+	this.localMode	 = "always";
 	this.sessionType = "j2ee";
 	
 	
 	// TODO: Update the path to CFMongoMap on your computer!
 	this.mappings["/com/cfmongomap"] 	= ExpandPath('/MongoDemo/com/cfmongomap');
-	this.mappings["/com/demo"] 			= ExpandPath('/MongoDemo/com/demo');
+	this.mappings["/examples/demo"] 	= ExpandPath('/MongoDemo/examples/demo');
 	
 	
 	

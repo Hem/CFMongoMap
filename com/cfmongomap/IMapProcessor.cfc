@@ -19,6 +19,13 @@ interface extends=Iterator{
 	
 	
 	/**
+	 * Required by the Java Driver for creating Linked REFs
+	 **/
+	IMapProcessor function setDB(required any database);
+	
+	
+	
+	/**
 	 * Convert MongoDB Object to a ColdFusion Component
 	 **/
 	Any function toCfObject(required any item);
